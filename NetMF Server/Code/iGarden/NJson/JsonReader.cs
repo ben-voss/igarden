@@ -1,0 +1,439 @@
+//
+// NJson - JSON Library for .Net.
+//    Copyright (C) 2011 Ben Voß
+//
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program.  If not, see <http://www.gnu.org/licenses/>.
+//
+// Portions of this program are based on the following sources:
+// 
+// RFC-4627 as described at the following URL:
+//
+// 		http://www.ietf.org/rfc/rfc4627.txt?number=4627
+//
+// JSON.org
+//		http://www.json.org
+//		http://www.json.org/example.html
+//
+using System;
+using System.IO;
+using System.Text;
+using System.Globalization;
+#if !NET_MF
+using System.Collections.Generic;
+#else
+using System.Collections;
+#endif
+
+namespace NJson
+{
+    public class JsonReader
+    {
+#if NET_MF
+        private class ScopeStack : Stack {
+            public new Scope Peek() {
+                return (Scope)base.Peek();
+            }
+
+            public new Scope Pop() {
+                return (Scope)base.Pop();
+            }
+        }
+#endif
+
+        private enum ScopeType
+        {
+            Object,
+            Array
+        }
+
+        private class Scope
+        {
+            public readonly ScopeType ScopeType;
+            public bool NameRead;
+
+            public Scope(ScopeType scopeType)
+            {
+                ScopeType = scopeType;
+            }
+        }
+
+#if NET_MF
+        private readonly ScopeStack _scopeStack = new ScopeStack();
+#else
+        private readonly Stack<Scope> _scopeStack = new Stack<Scope>();
+#endif
+
+        private TextReader _reader;
+
+        private char _c;
+
+        private JsonReader(TextReader reader)
+        {
+            _reader = reader;
+            _c = (char)reader.Read();
+            ParseWhiteSpace();
+        }
+
+        public static JsonReader Create(Stream stream)
+        {
+            if (stream == null)
+                throw new ArgumentNullException("stream", "The value specified for the 'stream' argument must not be null.");
+
+            return Create(new StreamReader(stream));
+        }
+
+        public static JsonReader Create(TextReader reader)
+        {
+            if (reader == null)
+                throw new ArgumentNullException("reader", "The value specified for the 'reader' argument must not be null.");
+
+            return new JsonReader(reader);
+        }
+
+        public static JsonReader Create(string fileName) {
+            if (fileName == null)
+                throw new ArgumentNullException("fileName", "The value specified for the 'fileName' argument must not be null.");
+
+            return new JsonReader(new StreamReader(File.OpenRead(fileName)));
+        }
+
+        public JsonType Type
+        {
+            get
+            {
+                if (_c == '{')
+                    return JsonType.Object;
+
+                if (_c == '[')
+                    return JsonType.Array;
+
+                if (_c == '"')
+                    return JsonType.String;
+
+                if (_c == 'f' || _c == 't')
+                    return JsonType.Boolean;
+
+                if (_c == 'n')
+                    return JsonType.Null;
+
+                return JsonType.Number;
+            }
+        }
+
+        public bool IsValue
+        {
+            get
+            {
+                return _c != '}' && _c != ']';
+            }
+        }
+
+        public void ReadObject()
+        {
+            if (_scopeStack.Count > 0)
+                ValidateValue();
+
+            if (_c != '{')
+                throw new Exception("Expected '{'.");
+
+            _c = (char)_reader.Read();
+            ParseWhiteSpace();
+
+            _scopeStack.Push(new Scope(ScopeType.Object));
+        }
+
+        public void ReadArray()
+        {
+            if (_scopeStack.Count > 0)
+                ValidateValue();
+
+            if (_c != '[')
+                throw new Exception("Expected '['.");
+
+            _c = (char)_reader.Read();
+            ParseWhiteSpace();
+
+            _scopeStack.Push(new Scope(ScopeType.Array));
+        }
+
+        public void ReadEnd()
+        {
+            if (_scopeStack.Count == 0)
+                throw new Exception("Scope stack empty");
+
+            Scope scope = _scopeStack.Pop();
+            if (scope.ScopeType == ScopeType.Array)
+            {
+                if (_c != ']')
+                    throw new Exception("Expected ']'.");
+            }
+            else if (scope.ScopeType == ScopeType.Object)
+            {
+                if (_c != '}')
+                    throw new Exception("Expected '}'.");
+            }
+
+            if (_scopeStack.Count > 0)
+            {
+                _c = (char)_reader.Read();
+                ParseWhiteSpace();
+
+                ParseComma();
+            }
+        }
+
+        public String ReadName()
+        {
+            if (_scopeStack.Count == 0)
+                throw new Exception("Cannot read a name when there is no scope.");
+
+            Scope scope = _scopeStack.Peek();
+
+            if (scope.ScopeType != JsonReader.ScopeType.Object)
+                throw new Exception("Cannot read a name when the scope is not an object.");
+
+            if (scope.NameRead)
+                throw new Exception("Cannot read a name when one has already been read.");
+
+            String result = ParseString();
+
+            scope.NameRead = true;
+
+            if (_c != ':')
+                throw new Exception("Expected ':'.");
+
+            _c = (char)_reader.Read();
+            ParseWhiteSpace();
+
+            return result;
+        }
+
+        public String ReadValueAsString()
+        {
+            ValidateValue();
+
+            String result = ParseString();
+
+            ParseComma();
+
+            return result;
+        }
+
+        public double ReadValueAsDouble()
+        {
+            ValidateValue();
+
+            double result = ParseNumber();
+
+            ParseComma();
+
+            return result;
+        }
+
+        public bool ReadValueAsBool()
+        {
+            ValidateValue();
+
+            bool result = ParseBool();
+
+            ParseComma();
+
+            return result;
+        }
+
+        private void ValidateValue()
+        {
+            if (_scopeStack.Count > 0)
+            {
+                Scope scope = _scopeStack.Peek();
+
+                if ((scope.ScopeType == ScopeType.Object) && (!scope.NameRead))
+                    throw new Exception();
+            }
+        }
+
+        private void ParseComma()
+        {
+            if (_scopeStack.Count > 0)
+            {
+                Scope scope = _scopeStack.Peek();
+
+                if ((scope.ScopeType == ScopeType.Object) && (_c != '}') && (_c != ','))
+                    throw new Exception("Expected ',' or '}'");
+
+                if ((scope.ScopeType == ScopeType.Array) && (_c != ']') && (_c != ','))
+                    throw new Exception("Expected ',' or ']'");
+
+                if (_c == ',')
+                {
+                    _c = (char)_reader.Read();
+                    ParseWhiteSpace();
+                }
+
+                scope.NameRead = false;
+            }
+        }
+
+        private bool ParseBool()
+        {
+            if (_c == 't')
+            {
+                ConsumeExpected('r');
+                ConsumeExpected('u');
+                ConsumeExpected('e');
+                _c = (char)_reader.Read();
+
+                ParseWhiteSpace();
+
+                return true;
+            }
+            else
+            {
+                ConsumeExpected('a');
+                ConsumeExpected('l');
+                ConsumeExpected('s');
+                ConsumeExpected('e');
+                _c = (char)_reader.Read();
+
+                ParseWhiteSpace();
+
+                return false;
+            }
+        }
+
+        private void ConsumeExpected(Char expected)
+        {
+            _c = (char)_reader.Read();
+            if (_c != expected)
+                throw new Exception("Expected '" + expected + "'.");
+        }
+
+        // Parse a string
+        // The function enters with c equal to the string open quote '"'
+        // and the reader positioned at the next character.
+        // The function returns the parsed string and sets c equal to the first
+        // character after the closing quote and the reader posittioned at the
+        // next character
+        private string ParseString()
+        {
+            StringBuilder builder = new StringBuilder();
+            _c = (char)_reader.Read();
+            while (_c != '"')
+            {
+
+                if (_c == '\\')
+                {
+                    _c = (char)_reader.Read();
+                    if (_c == 0xffff)
+                        throw new Exception("Unexpected end of stream.");
+
+                    if (_c == 'n')
+                        builder.Append('\n');
+                    else if (_c == 'r')
+                        builder.Append('\r');
+                    else if (_c == 't')
+                        builder.Append('\t');
+                    else if (_c == 'b')
+                        builder.Append('\b');
+                    else if (_c == 'f')
+                        builder.Append('\f');
+                    else if (_c == '\\')
+                        builder.Append('\\');
+                    else if (_c == '/')
+                        builder.Append('/');
+                    else if (_c == '"')
+                        builder.Append('"');
+                    else if (_c == 'u')
+                    {
+                        char[] chars = new char[4];
+                        _reader.Read(chars, 0, 4);
+
+                        uint unicode;
+
+                        unicode = UInt32.Parse(new String(chars));
+
+                        builder.Append((char)unicode);
+
+                        //builder.Append(Char.ConvertFromUtf32((int)unicode));
+                    }
+                }
+                else
+                    builder.Append(_c);
+
+                _c = (char)_reader.Read();
+                if (_c == 0xffff)
+                    throw new Exception("Unexpected end of stream");
+            }
+
+            _c = (char)_reader.Read();
+            ParseWhiteSpace();
+
+            return builder.ToString();
+        }
+
+        // Parse a number (Decimal)
+        // The function enters with c equal to the first digit of the number (0-9) or the decimal point
+        // and the reader positioned at the next character.
+        // The function returns the parsed Decimal and sets c equal to the first
+        // character after the last digit and the reader positioned at the
+        // next character
+        private double ParseNumber()
+        {
+            StringBuilder builder = new StringBuilder();
+
+            do
+            {
+                builder.Append(_c);
+                _c = (char)_reader.Read();
+            } while ((_c >= '0' && _c <= '9') || (_c == 'e') || (_c == 'E') || (_c == '-') || (_c == '+') || (_c == '.'));
+
+            double number;
+            if (!Double.TryParse(builder.ToString(), out number))
+                throw new Exception("Unable to parse '" + builder + "' into a Decimal.");
+
+            ParseWhiteSpace();
+
+            return (double)number;
+        }
+
+        public Object ReadNull()
+        {
+            ConsumeExpected('u');
+            ConsumeExpected('l');
+            ConsumeExpected('l');
+            _c = (char)_reader.Read();
+            ParseWhiteSpace();
+
+            ParseComma();
+
+            return null;
+        }
+
+        // Consumes white space (tabs, spaces, new lines)
+        // The function enters with a character that can be anything.  If the character is not
+        // white space the function returns immediately.  Otherwise, it will consume characters
+        // until a non-white space character is encounter.
+        // The function returns with c set to the first non-white space character and the reader
+        // positioned at the next character
+        private void ParseWhiteSpace()
+        {
+            while (CharIsWhiteSpace(_c))
+                _c = (char)_reader.Read();
+        }
+
+        private bool CharIsWhiteSpace(char c) {
+            return (c == ' ') || (c == '\r') || (c == '\n') || (c == '\t');
+        }
+    }
+}

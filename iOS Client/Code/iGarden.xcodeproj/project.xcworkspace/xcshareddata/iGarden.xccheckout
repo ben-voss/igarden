@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>7487E057-199D-4E3B-8A54-9D186A9AFAD7</string>
+	<key>IDESourceControlProjectName</key>
+	<string>project</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>4d0401ce-d150-674a-a9ea-246185e11f37++2778</key>
+		<string>http://shuttle:18080/svn/Home/iGarden/Trunk</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>iOS Client/Code/iGarden.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>4d0401ce-d150-674a-a9ea-246185e11f37++2778</key>
+		<string>../../../..</string>
+	</dict>
+	<key>IDESourceControlProjectRepositoryRootDictionary</key>
+	<dict>
+		<key>4d0401ce-d150-674a-a9ea-246185e11f37++2778</key>
+		<string>http://shuttle:18080/svn/Home</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>http://shuttle:18080/svn/Home/iGarden/Trunk/iOS%20Client/Code/iGarden.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>4d0401ce-d150-674a-a9ea-246185e11f37++2778</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.subversion</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>4d0401ce-d150-674a-a9ea-246185e11f37++2778</string>
+			<key>IDESourceControlWCCName</key>
+			<string>Trunk</string>
+		</dict>
+	</array>
+</dict>
+</plist>

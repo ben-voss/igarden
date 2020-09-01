@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<gadgeteerModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.0.0.0" Id="78ede2aa-c8f7-41ad-bcf2-e898ccb1cb36" newModel="false" xmlns="http://schemas.microsoft.com/dsltools/GadgeteerDSL">
+  <gadgeteerHardware>
+    <gadgeteerModelHasGadgeteerHardware Id="4edff99f-9f47-45f0-8040-edf62b444390">
+      <mainboard Id="26ef4f84-2822-407b-94bd-02eeaadbd882" cachedDefinition="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&#xD;&#xA;&lt;MainboardDefinition xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; Name=&quot;FEZCerbuinoBee&quot; Type=&quot;GHIElectronics.Gadgeteer.FEZCerbuinoBee&quot; HardwareVersion=&quot;1.2&quot; Image=&quot;C:\Program Files (x86)\GHI Electronics\GHI .NET Gadgeteer SDK\Mainboards\FEZCerbuinoBee\Resources\Image.jpg&quot; BoardWidth=&quot;85&quot; BoardHeight=&quot;57&quot; MinimumGadgeteerCoreVersion=&quot;2.42.500&quot; HelpUrl=&quot;http://www.ghielectronics.com/catalog/product/351&quot;&gt;&#xD;&#xA;  &lt;ProvidedSockets&gt;&#xD;&#xA;    &lt;ProvidedSocket Orientation=&quot;180&quot; Left=&quot;79.5&quot; Top=&quot;16&quot; Label=&quot;1&quot; ConstructorParameter=&quot;1&quot;&gt;&#xD;&#xA;      &lt;Types&gt;&#xD;&#xA;        &lt;Type&gt;P&lt;/Type&gt;&#xD;&#xA;        &lt;Type&gt;S&lt;/Type&gt;&#xD;&#xA;        &lt;Type&gt;U&lt;/Type&gt;&#xD;&#xA;        &lt;Type&gt;Y&lt;/Type&gt;&#xD;&#xA;      &lt;/Types&gt;&#xD;&#xA;      &lt;SharedPinMaps /&gt;&#xD;&#xA;    &lt;/ProvidedSocket&gt;&#xD;&#xA;    &lt;ProvidedSocket Orientation=&quot;180&quot; Left=&quot;79.5&quot; Top=&quot;30&quot; Label=&quot;2&quot; ConstructorParameter=&quot;2&quot;&gt;&#xD;&#xA;      &lt;Types&gt;&#xD;&#xA;        &lt;Type&gt;A&lt;/Type&gt;&#xD;&#xA;        &lt;Type&gt;I&lt;/Type&gt;&#xD;&#xA;        &lt;Type&gt;K&lt;/Type&gt;&#xD;&#xA;        &lt;Type&gt;U&lt;/Type&gt;&#xD;&#xA;        &lt;Type&gt;Y&lt;/Type&gt;&#xD;&#xA;      &lt;/Types&gt;&#xD;&#xA;      &lt;SharedPinMaps&gt;&#xD;&#xA;        &lt;SharedPinMap SocketPin=&quot;8&quot; NetId=&quot;I2CSDA&quot; SharedOnly=&quot;false&quot; /&gt;&#xD;&#xA;        &lt;SharedPinMap SocketPin=&quot;9&quot; NetId=&quot;I2CSCL&quot; SharedOnly=&quot;false&quot; /&gt;&#xD;&#xA;      &lt;/SharedPinMaps&gt;&#xD;&#xA;    &lt;/ProvidedSocket&gt;&#xD;&#xA;    &lt;ProvidedSocket Orientation=&quot;180&quot; Left=&quot;79.5&quot; Top=&quot;44.5&quot; Label=&quot;3&quot; ConstructorParameter=&quot;3&quot;&gt;&#xD;&#xA;      &lt;Types&gt;&#xD;&#xA;        &lt;Type&gt;A&lt;/Type&gt;&#xD;&#xA;        &lt;Type&gt;O&lt;/Type&gt;&#xD;&#xA;        &lt;Type&gt;P&lt;/Type&gt;&#xD;&#xA;        &lt;Type&gt;Y&lt;/Type&gt;&#xD;&#xA;      &lt;/Types&gt;&#xD;&#xA;      &lt;SharedPinMaps /&gt;&#xD;&#xA;    &lt;/ProvidedSocket&gt;&#xD;&#xA;  &lt;/ProvidedSockets&gt;&#xD;&#xA;  &lt;Assemblies&gt;&#xD;&#xA;    &lt;Assembly MFVersion=&quot;4.2&quot; Name=&quot;GHIElectronics.Gadgeteer.FEZCerbuinoBee&quot; /&gt;&#xD;&#xA;  &lt;/Assemblies&gt;&#xD;&#xA;  &lt;LibrariesProvided&gt;&#xD;&#xA;    &lt;Assembly MFVersion=&quot;4.2&quot; Name=&quot;GHIElectronics.Gadgeteer.FEZCerbuinoBee&quot; /&gt;&#xD;&#xA;  &lt;/LibrariesProvided&gt;&#xD;&#xA;&lt;/MainboardDefinition&gt;" name="FEZCerbuinoBee">
+        <sockets>
+          <gadgeteerHardwareHasSockets Id="7680d714-f5f6-4fcd-a94e-bf7e2543e840">
+            <socket Id="f7d13903-03b7-45be-a85f-e3fb48f19bec" label="1" />
+          </gadgeteerHardwareHasSockets>
+          <gadgeteerHardwareHasSockets Id="6eb8953a-b6ed-4c03-8f8d-f66bc2b878df">
+            <socket Id="10830d08-7f9c-475d-9a69-5b34ed1ae349" label="2" />
+          </gadgeteerHardwareHasSockets>
+          <gadgeteerHardwareHasSockets Id="139f0234-7989-439f-affe-619874971f94">
+            <socket Id="e91d77ae-712f-4181-b30c-9f3b158ff497" label="3" />
+          </gadgeteerHardwareHasSockets>
+        </sockets>
+      </mainboard>
+    </gadgeteerModelHasGadgeteerHardware>
+    <gadgeteerModelHasGadgeteerHardware Id="25a61982-c05d-4a6a-bc41-9b0fc44e9fd9">
+      <module Id="4aff60dc-01c4-4757-b673-ce47ce1f99cc" cachedDefinition="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&#xD;&#xA;&lt;ModuleDefinition xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; Name=&quot;Relays&quot; Type=&quot;Gadgeteer.Modules.Seeed.Relays&quot; HardwareVersion=&quot;1.0&quot; Image=&quot;C:\Program Files (x86)\Seeed\Seeed .NET Gadgeteer SDK\Modules\Relays\Resources\Image.jpg&quot; BoardWidth=&quot;77.3&quot; BoardHeight=&quot;52.3&quot; MinimumGadgeteerCoreVersion=&quot;2.42.500&quot; HelpUrl=&quot;&quot; UniqueId=&quot;b2655195-9ed5-4fad-8138-8df3c8fda606&quot; Manufacturer=&quot;Seeed&quot; Description=&quot;A Relays module&quot; InstanceName=&quot;relays&quot; ModuleSuppliesPower=&quot;false&quot;&gt;&#xD;&#xA;  &lt;ProvidedSockets /&gt;&#xD;&#xA;  &lt;Assemblies&gt;&#xD;&#xA;    &lt;Assembly MFVersion=&quot;4.2&quot; Name=&quot;GTM.Seeed.Relays&quot; /&gt;&#xD;&#xA;  &lt;/Assemblies&gt;&#xD;&#xA;  &lt;LibrariesProvided /&gt;&#xD;&#xA;  &lt;Sockets&gt;&#xD;&#xA;    &lt;Socket Orientation=&quot;90&quot; Left=&quot;38&quot; Top=&quot;47.5&quot; TypesLabel=&quot;Y&quot; ConstructorOrder=&quot;1&quot; Optional=&quot;false&quot;&gt;&#xD;&#xA;      &lt;Types&gt;&#xD;&#xA;        &lt;Type&gt;Y&lt;/Type&gt;&#xD;&#xA;      &lt;/Types&gt;&#xD;&#xA;      &lt;Pins&gt;&#xD;&#xA;        &lt;Pin Shared=&quot;false&quot;&gt;3&lt;/Pin&gt;&#xD;&#xA;        &lt;Pin Shared=&quot;false&quot;&gt;4&lt;/Pin&gt;&#xD;&#xA;        &lt;Pin Shared=&quot;false&quot;&gt;5&lt;/Pin&gt;&#xD;&#xA;        &lt;Pin Shared=&quot;false&quot;&gt;6&lt;/Pin&gt;&#xD;&#xA;      &lt;/Pins&gt;&#xD;&#xA;    &lt;/Socket&gt;&#xD;&#xA;  &lt;/Sockets&gt;&#xD;&#xA;  &lt;ExtraLibrariesRequired /&gt;&#xD;&#xA;&lt;/ModuleDefinition&gt;" name="relays2" moduleType="Gadgeteer.Modules.Seeed.Relays" moduleDefinitionId="b2655195-9ed5-4fad-8138-8df3c8fda606">
+        <socketUses>
+          <moduleHasSocketUses Id="8956b978-2a58-477e-b0dd-5c09215f7c4e">
+            <socketUse Id="f5307b6e-5c1c-4d6a-9a5e-a7f27de88e0b" label="Y">
+              <socket>
+                <socketUseReferencesSocket Id="b831172a-0f58-43b4-ac20-e1b7b9fd4aa3">
+                  <socketMoniker Id="e91d77ae-712f-4181-b30c-9f3b158ff497" />
+                </socketUseReferencesSocket>
+              </socket>
+            </socketUse>
+          </moduleHasSocketUses>
+        </socketUses>
+      </module>
+    </gadgeteerModelHasGadgeteerHardware>
+    <gadgeteerModelHasGadgeteerHardware Id="fb1a1a22-9169-4a44-aae8-3c64e80332f5">
+      <module Id="7d382752-97b1-46ae-b0ac-b6b78df0eaf1" cachedDefinition="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&#xD;&#xA;&lt;ModuleDefinition xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; Name=&quot;Relays&quot; Type=&quot;Gadgeteer.Modules.Seeed.Relays&quot; HardwareVersion=&quot;1.0&quot; Image=&quot;C:\Program Files (x86)\Seeed\Seeed .NET Gadgeteer SDK\Modules\Relays\Resources\Image.jpg&quot; BoardWidth=&quot;77.3&quot; BoardHeight=&quot;52.3&quot; MinimumGadgeteerCoreVersion=&quot;2.42.500&quot; HelpUrl=&quot;&quot; UniqueId=&quot;b2655195-9ed5-4fad-8138-8df3c8fda606&quot; Manufacturer=&quot;Seeed&quot; Description=&quot;A Relays module&quot; InstanceName=&quot;relays&quot; ModuleSuppliesPower=&quot;false&quot;&gt;&#xD;&#xA;  &lt;ProvidedSockets /&gt;&#xD;&#xA;  &lt;Assemblies&gt;&#xD;&#xA;    &lt;Assembly MFVersion=&quot;4.2&quot; Name=&quot;GTM.Seeed.Relays&quot; /&gt;&#xD;&#xA;  &lt;/Assemblies&gt;&#xD;&#xA;  &lt;LibrariesProvided /&gt;&#xD;&#xA;  &lt;Sockets&gt;&#xD;&#xA;    &lt;Socket Orientation=&quot;90&quot; Left=&quot;38&quot; Top=&quot;47.5&quot; TypesLabel=&quot;Y&quot; ConstructorOrder=&quot;1&quot; Optional=&quot;false&quot;&gt;&#xD;&#xA;      &lt;Types&gt;&#xD;&#xA;        &lt;Type&gt;Y&lt;/Type&gt;&#xD;&#xA;      &lt;/Types&gt;&#xD;&#xA;      &lt;Pins&gt;&#xD;&#xA;        &lt;Pin Shared=&quot;false&quot;&gt;3&lt;/Pin&gt;&#xD;&#xA;        &lt;Pin Shared=&quot;false&quot;&gt;4&lt;/Pin&gt;&#xD;&#xA;        &lt;Pin Shared=&quot;false&quot;&gt;5&lt;/Pin&gt;&#xD;&#xA;        &lt;Pin Shared=&quot;false&quot;&gt;6&lt;/Pin&gt;&#xD;&#xA;      &lt;/Pins&gt;&#xD;&#xA;    &lt;/Socket&gt;&#xD;&#xA;  &lt;/Sockets&gt;&#xD;&#xA;  &lt;ExtraLibrariesRequired /&gt;&#xD;&#xA;&lt;/ModuleDefinition&gt;" name="relays1" moduleType="Gadgeteer.Modules.Seeed.Relays" moduleDefinitionId="b2655195-9ed5-4fad-8138-8df3c8fda606">
+        <socketUses>
+          <moduleHasSocketUses Id="4ac4c211-9d88-413e-865a-b79b78d69c42">
+            <socketUse Id="3b4ff1d1-bb06-4b37-8cb6-570decaa581b" label="Y">
+              <socket>
+                <socketUseReferencesSocket Id="83389169-f412-440b-8985-4dd47c93889a">
+                  <socketMoniker Id="10830d08-7f9c-475d-9a69-5b34ed1ae349" />
+                </socketUseReferencesSocket>
+              </socket>
+            </socketUse>
+          </moduleHasSocketUses>
+        </socketUses>
+      </module>
+    </gadgeteerModelHasGadgeteerHardware>
+  </gadgeteerHardware>
+  <comments>
+    <gadgeteerModelHasComments Id="a0f561a4-662c-4099-a92f-7fdf65f48b7b">
+      <comment Id="bba93b74-4acd-4f8a-917b-12a7b0e6fa05" text="Tip: To have the designer connect all modules for you, right-click the diagram, and then click 'Connect all modules'." />
+    </gadgeteerModelHasComments>
+  </comments>
+</gadgeteerModel>
